@@ -1,3 +1,5 @@
+import hmac
+
 import streamlit as st
 
 from invoice_run import process_files
@@ -5,6 +7,26 @@ from invoice_run import process_files
 st.set_page_config(page_title="Network Invoice Tool", page_icon=":material/receipt_long:", layout="wide")
 
 st.title("Network invoice tool")
+
+# ---- password gate: the password lives in the app's Secrets (app_password = "..."), never in the code
+if not st.session_state.get("signed_in"):
+    try:
+        expected = st.secrets.get("app_password", "")
+    except Exception:  # no secrets set up at all
+        expected = ""
+    if not expected:
+        st.error("The app password has not been set up yet (Settings > Secrets).", title="App locked")
+        st.stop()
+    with st.form("sign_in"):
+        pw = st.text_input("Password", type="password", key="pw")
+        ok = st.form_submit_button("Open", icon=":material/lock_open:", type="primary")
+    if ok and hmac.compare_digest(pw.encode(), str(expected).encode()):
+        st.session_state["signed_in"] = True
+        st.rerun()
+    if ok:
+        st.error("Wrong password.")
+    st.stop()
+
 st.caption("Upload the network invoice files (NBCHARGES / NBREMIND). You get one zip with the Excel extract, "
            "the remit files and Network Lines.csv for Snowflake. Nothing is kept on the server.")
 

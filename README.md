@@ -25,8 +25,11 @@ All three come back in one zip. Nothing is stored on the server.
 
 ## Deploy (Streamlit Community Cloud)
 1. share.streamlit.io > **Create app** > from GitHub: repo `network-invoice-tool`, branch `main`, file `streamlit_app.py`.
-2. Advanced settings: Python 3.12. Deploy.
-3. App > **Share**: keep it private and add the email addresses allowed to open it.
+2. Advanced settings: Python 3.12. In **Secrets**, add one line with your own password:
+   `app_password = "choose-a-password"`
+   Then Deploy.
+3. The app is public, but locked: nothing shows until the password is entered. Without the secret it stays locked.
+4. To change the password: App > Settings > Secrets.
 
 ## Change the code
 - Run locally: `pip install -r requirements.txt`, then `streamlit run streamlit_app.py`.
