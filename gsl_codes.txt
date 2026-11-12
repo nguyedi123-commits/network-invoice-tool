@@ -1,0 +1,6 @@
+# GSL (Guaranteed Service Level) charge codes - one per line.
+# Lines with these charge codes are treated as GSL credits (separate Excel row, not deducted on the remit).
+# The app ALSO treats as GSL: record type 400 (Vic/SA), and any line whose description mentions
+# "GSL", "Guaranteed Service", "GCSS" or "Performance Standard".
+# Add new codes here when a network starts sending them. Lines starting with # are ignored.
+TASGSL1

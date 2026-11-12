@@ -1,0 +1,12 @@
+# Code only - never commit invoice data or outputs
+*.csv
+*.CSV
+*.xlsx
+*.xls
+*.zip
+Input/
+Output/
+.streamlit/secrets.toml
+__pycache__/
+*.pyc
+.venv/
